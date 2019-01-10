@@ -1,0 +1,52 @@
+<% var giaVe = props.giaVe %>
+
+<% var idHangXe = props.idHangXe %>
+<% if (idHangXe) { %>
+    <% var tenHangXe = idHangXe.tenHangXe %>
+<% } %>
+
+<% var idLoTrinh = props.idLoTrinh %>
+<% if (idLoTrinh) { %>
+    <% var huyenTinhDi = idLoTrinh.huyenTinhDi %>
+    <% var huyenTinhDen = idLoTrinh.huyenTinhDen %>
+<% } %>
+
+<% var idXe = props.idXe %>
+<% if (idXe) { %>
+    <% var idLoaiXe = idXe.idLoaiXe %>
+    <% if (idLoaiXe) { %>
+        <% var soCho = idLoaiXe.soCho %>
+    <% } %>
+<% } %>
+
+<% var thoiGianKhoiHanh = moment(props.thoiGianKhoiHanh.iso).format('hh:mm - DD/MM/YY'); %>
+
+<% var generateLikeBtn = (idStr) => { %>
+    <% if (user) { %>
+        <% var likeList = user.loTrinhYeuThich || []; %>
+        <% if (likeList.includes(props.objectId)) { %>
+            <button type="button" id="<%= props.objectId %>" class="btn btn-default dislike-btn" style="float: right;">liked &#10084</button>
+        <% } else {%>
+            <button type="button" id="<%= props.objectId %>" class="btn btn-default like-btn" style="float: right;">like ♡</button>
+        <% } %>
+    <% } %>
+    <span></span>
+<% } %>
+
+<li class="list-group-item">
+    <div>
+        <!-- <% console.log(props); %> -->
+    </div>
+    <span class="badge"><%= giaVe.toLocaleString(
+        undefined, {
+            minimumFractionDigits: 0
+        }) + " VNĐ"; %></span>
+    <span class="badge">Giá:</span>
+    <div>Hãng xe: <b><%= tenHangXe %></b></div>
+    <div>Tuyến: <b><%= props.idLoTrinh.huyenTinhDi  %> - <%= props.idLoTrinh.huyenTinhDen %></b></div>
+    <a href="/chiTietVe/<%= props.objectId %>"><button type="button" class="btn btn-default" style="float: right;">&nbsp&nbsp Chọn chỗ  📅 &nbsp&nbsp</button></a>
+    <%= generateLikeBtn() %>
+    <div>Thời gian khởi hành: <b><%= thoiGianKhoiHanh  %></b></div>
+    <div>Xe: <b><%= soCho %> chỗ</b></div>
+
+</li>

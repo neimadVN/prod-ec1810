@@ -1,0 +1,36 @@
+    <footer class="container-fluid text-center">
+        <div class="row text-left">
+            <div class="col-sm-3">
+                <h4>0-123-456-789</h4>
+                <p>ec1810@student.fit.hcmus.vn</p>
+            </div>
+            <div class="col-sm-3">
+                <img src="http://www.chrisbarnespottery.com/image/payment/credit-cards-logos_635.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+            <div class="col-sm-3">
+                <h4>COMPANY</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+            <div class="col-sm-3">
+                <h4>HELP</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script type="text/javascript" src="/javascripts/login-signup.js"></script>
+    <script type="text/javascript" src="/javascripts/user.js"></script>
+    <%_ if (typeof jsFiles != 'undefined' && jsFiles.length) { -%>
+        <%_ jsFiles.forEach(function(file) { -%>
+        <script type="text/javascript" src="<%= file; %>"></script>
+        <%_ }); -%>
+    <%_ } -%>
+</body>
+
+</html>

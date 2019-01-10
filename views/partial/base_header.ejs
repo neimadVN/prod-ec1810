@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <% if (typeof cssFiles != 'undefined' && cssFiles.length) { %>
+    <% cssFiles.forEach(function(file) { %>
+    <link rel="stylesheet" type="text/css" href="/<%= file; %>" />
+    <% }); %>
+    <% } %>
+
+    <% if (user) { %>
+    <% var hoTen = user.hoTen || undefined%>
+    <% var gioiTinh = user.gioiTinh || undefined %>
+    <% var diaChi = user.diaChi || undefined %>
+    <% console.log(user); %>
+
+    <!-- User Var -->
+    <script>
+        var user = {};
+        user.hoTen = '<%= hoTen %>';
+        user.gioiTinh = '<%= gioiTinh %>';
+        user.diaChi = '<%= diaChi %>';
+    </script>
+    <% } %>
+
+
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    .dislike-btn {
+        font-weight: bold;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse" style="background-color: black; border-color: black; color: white">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" style="font-weight: bold; color: white">EC1810</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+                <% if (!user) { %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id='btn-login'><a href="#" style="font-weight: 600; color: white"><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
+                    <li id='btn-signup'><a href="#" style="font-weight: 600; color: white"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
+                </ul>
+                <% } else { %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+                            <%= user.username %>
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="edit-seft-profile" href="#">Cá Nhân</a></li>
+                            <li><a href="/users/tuyenYeuThich">Tuyến Yêu Thích</a></li>
+                            <li><a href="#">Quản lý</a></li>
+                            <li><a href="#">Vé của tôi</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/auth/logout">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+    </nav>

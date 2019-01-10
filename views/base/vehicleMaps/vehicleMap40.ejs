@@ -1,0 +1,131 @@
+<% var generateSlot = (idStr) => { %>
+    <% var id = ve[idStr]; %>
+    <% if (id) { %>
+        <div class="col-sm-2"><button type="button" class="btn btn-default seat" id="<%= idStr %>" data-id="<%= id %>"><%= idStr %></button></div>
+    <% } else { %>
+        <div class="col-sm-2"><button type="button" class="btn btn-default seat" id="<%= idStr %>" disabled><%= idStr %></button></div>
+    <% } %>
+<% } %>
+
+<div class="col-sm-11">
+    <div class="row">Xe giường nằm 40 chỗ</div></br>
+    <div class="row">Tầng trên</div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('40') %>
+          <% generateSlot('39') %>
+          <% generateSlot('38') %>
+          <% generateSlot('37') %>
+          <% generateSlot('36') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('33') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('34') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('35') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('32') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('31') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('30') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('27') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('28') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('29') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('26') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('25') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('24') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('21') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('22') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('23') %>
+        <div class="col-sm-1"></div>
+    </div></br>
+    <div class="row">Tầng dưới</div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('20') %>
+          <% generateSlot('19') %>
+          <% generateSlot('18') %>
+          <% generateSlot('17') %>
+          <% generateSlot('16') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('13') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('14') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('15') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('12') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('11') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('10') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('07') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('08') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('09') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('06') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('05') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('04') %>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+          <% generateSlot('01') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('02') %>
+        <div class="col-sm-2"></div>
+          <% generateSlot('03') %>
+        <div class="col-sm-1"></div>
+    </div></br>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">Cửa lên xuống</div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4 bg-primary seatDriver"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>Tài
+            xế</div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>

@@ -1,0 +1,238 @@
+<%- include('../partial/base_header', { cssFiles: [] }); %>
+<div class="container">
+    </br>
+    <hr>
+    </br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-11 bg-primary text-white stepHeader">Bước 1: Chọn chỗ ngồi</div>
+                <div class="col-sm-1"></div>
+            </div></br>
+            <div class="row">
+                <% if (chuyen && chuyen.get('idXe') && chuyen.get('idXe').get('idLoaiXe') ) {%>
+                    <% var loaiXe = chuyen.get('idXe').get('idLoaiXe').toJSON(); %>
+                    <% var titleXe = loaiXe.tenLoai; %>
+
+                    <% if (loaiXe.soCho == 16) { %>
+                        <%- include('./vehicleMaps/vehicleMap16', { titleXe: titleXe }); %>
+                    <% } %>
+
+                    <% if (loaiXe.soCho == 29) { %>
+                        <%- include('./vehicleMaps/vehicleMap29', { titleXe: titleXe }); %>
+                    <% } %>
+
+                    <% if (loaiXe.soCho == 40) { %>
+                        <%- include('./vehicleMaps/vehicleMap40', { titleXe: titleXe }); %>
+                    <% } %>
+
+                <% } %>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-11 bg-primary text-white stepHeader">Bước 2: Chọn điểm đón trả khách</div>
+                <div class="col-sm-1"></div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-sm-11">
+                    <select class="form-control" id="sel3">
+                        <option value="" disabled selected>Chọn điểm đón khách</option>
+                        <% if (chuyen && chuyen.get('idLoTrinh') && chuyen.get('idLoTrinh').get('diemDon')) { %>
+                            <% chuyen.get('idLoTrinh').get('diemDon').forEach((indexVal) => { %>
+                                <% if (indexVal) { %>
+                                    <option value="<%= indexVal %>"><%= indexVal %></option>
+                                <% } %>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-sm-11">
+                    <select class="form-control" id="sel4">
+                        <option value="" disabled selected>Chọn điểm trả khách</option>
+                        <% if (chuyen && chuyen.get('idLoTrinh') && chuyen.get('idLoTrinh').get('diemTra')) { %>
+                            <% chuyen.get('idLoTrinh').get('diemTra').forEach((indexVal) => { %>
+                                <% if (indexVal) { %>
+                                    <option value="<%= indexVal %>"><%= indexVal %></option>
+                                <% } %>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                    </br>
+                    <p class="text-justify">
+                        (*) Điểm đón trả khách có thể không phù hợp với tình hình giao thông và một vài tình huống
+                        thời tiết ngoài dự đoán.
+                        Mong quý khách thông cảm.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12 bg-primary text-white stepHeader">Bước 3: Điền thông tin liên lạc</div>
+            </div>
+            </br>
+            <div class="row">
+                <form class="payment-info">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="hoTenKhach" type="text" class="form-control" name="fullName" placeholder="(*) Họ và tên"
+                            required>
+                    </div></br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                        <input id="sdtKhach" type="text" class="form-control" name="numberPhone" placeholder="(*) Số điện thoại"
+                            required>
+                    </div></br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input id="emailKhach" type="email" class="form-control" name="email" placeholder="Email">
+                    </div></br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-text-size"></i></span>
+                        <input id="ghiChu" type="text" class="form-control" name="note" placeholder="Ghi chú">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </br>
+    </br>
+    </br>
+    <div class="row" style="width: 100%">
+        <button type="button" class="btn btn-default btn-lg selectButton">Chọn lại vé</button>
+        <button type="button" class="btn btn-primary btn-lg selectButton btn-payment" unitPrice="<%= chuyen.get('giaVe') %>">Tiếp tục</button>
+        <span style="float: right">Tổng tiền: <span style="color: red; font-weight: bold; font-size: larger" id="totalPrice">0</span> vnđ</span>
+    </div><br>
+    
+    <div style="visibility: hidden" id="paypal-button-container"></div>
+</div>
+<% var jsFiles = ['/javascripts/seatPick.js', '/javascripts/payment.js', 'https://cdnjs.cloudflare.com/ajax/libs/money.js/0.2.0/money.min.js']; %>
+<%- include('../partial/base_footer.ejs', {jsFiles: jsFiles}); %>
+
+<!-- PAYMENT -->
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+// Render the PayPal button
+paypal.Button.render({
+// Set your environment
+env: 'sandbox', // sandbox | production
+
+// Specify the style of the button
+style: {
+  layout: 'vertical',  // horizontal | vertical
+  size:   'medium',    // medium | large | responsive
+  shape:  'rect',      // pill | rect
+  color:  'gold'       // gold | blue | silver | white | black
+},
+
+// Specify allowed and disallowed funding sources
+//
+// Options:
+// - paypal.FUNDING.CARD
+// - paypal.FUNDING.CREDIT
+// - paypal.FUNDING.ELV
+funding: {
+  allowed: [
+    paypal.FUNDING.CARD,
+    paypal.FUNDING.CREDIT
+  ],
+  disallowed: []
+},
+
+// Enable Pay Now checkout flow (optional)
+commit: true,
+
+// PayPal Client IDs - replace with your own
+// Create a PayPal app: https://developer.paypal.com/developer/applications/create
+client: {
+  sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+  production: '<insert production client id>'
+},
+
+payment: function (data, actions) {
+    let totalPaid = Number($('#totalPrice').attr('total')) * 0.000043;
+    console.log($('#totalPrice').attr('total'));
+    totalPaid = Number.parseFloat(totalPaid).toFixed(2);
+    console.log(totalPaid);
+  return actions.payment.create({
+    payment: {
+      transactions: [
+        {
+          amount: {
+            total: totalPaid,
+            currency: 'USD'
+          }
+        }
+      ]
+    }
+  });
+},
+
+onAuthorize: function (data, actions) {
+  return actions.payment.execute()
+    .then(function (res) {
+        const wiatingPopUp = bootbox.alert('Đang tiến hành đặt vé <i class="fa fa-gear fa-spin" style="font-size:24px"></i>');
+
+        console.log(res);
+        let paymentId = res.id;
+
+        let diemDon = $('select#sel3').val();
+        if (!diemDon && !$('select#sel3 option')[1]) {
+            $('select#sel3 option')[1].selected = true;
+            diemDon = $('select#sel3').val();
+        }
+
+        let diemTra = $('select#sel4').val();
+        if (!diemTra && !$('select#sel4 option')[1]) {
+            $('select#sel4 option')[1].selected = true;
+            diemTra = $('select#sel4').val();
+        }
+
+        let hoTenKhach = $('form.payment-info input#hoTenKhach').val();
+        let sdtKhach = $('form.payment-info input#sdtKhach').val();
+        let emailKhach = $('form.payment-info input#emailKhach').val();
+        let ghiChu = $('form.payment-info input#ghiChu').val();
+
+        let idVe = [];
+        for (var key in window.SEAT_PICK) {
+            if (window.SEAT_PICK.hasOwnProperty(key)) {
+                idVe.push(key);
+            }
+        }
+
+        $.ajax({
+            url: '/users/booking',
+            dataType: 'text',
+            type: 'POST',
+            data: { 
+                diemDon,
+                diemTra,
+                hoTenKhach,
+                sdtKhach,
+                emailKhach,
+                ghiChu,
+                paymentId,
+                idVe
+            }
+        }).done((data) => {
+            wiatingPopUp.hide('fast', () => {
+                bootbox.alert('Đặt vé thành công', () => {
+                    location.reload();
+
+                });
+            });
+        }).fail((err) => {
+            wiatingPopUp.hide('fast', () => {
+                bootbox.alert('Lỗi! - ' + err);
+            });
+        });
+
+    });
+}
+}, '#paypal-button-container');
+</script>

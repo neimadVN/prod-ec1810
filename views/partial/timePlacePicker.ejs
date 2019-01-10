@@ -1,0 +1,36 @@
+<form id='form-submit-time-place' action="/api/postTuyenQuery" method='POST' class="container text-center">
+    <div class="row">
+        <div class="col-sm-4">
+            <select class="form-control" name="huyenTinhDi" id="select-dep">
+                <option value="" disabled selected>Nơi đi</option>
+                <% if (huyenTinh) {%>
+                    <% huyenTinh.forEach((value) => { %>
+                        <option value="<%= value.get('huyenTinh') %>"><%= value.get('huyenTinh') %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control" name="huyenTinhDen" id="select-des">
+                <option value="" disabled selected>Nơi đến</option>
+                <% if (huyenTinh) {%>
+                    <% huyenTinh.forEach((value) => { %>
+                        <option value="<%= value.get('huyenTinh') %>"><%= value.get('huyenTinh') %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="thoiGianKhoiHanh" value="Chọn Ngày Đi">
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <button id="btn-submit-time-place" type="submit" class="btn btn-danger">Tìm Kiếm <span class="glyphicon glyphicon-search"></span></button>
+</form>
